@@ -1,4 +1,7 @@
 sudo: false
+arch:
+    - amd64
+    - ppc64le
 
 language: python
 
@@ -8,7 +11,7 @@ python:
   - '3.5'
   - '3.6'
   - '3.7'
-  - 'pypy'
+ # - 'pypy'
   - 'pypy3'
 
 env:
@@ -69,12 +72,20 @@ matrix:
       env: DJANGO_VERSION=1.8.x
     - python: '3.6'
       env: DJANGO_VERSION=1.8.x
+  # adding code to remove power run on powersystem
+    - python: '2.7'
+      env: DJANGO_VERSION=1.11.x
+      arch: ppc64le  
+    - python: '2.7'
+      env: DJANGO_VERSION=1.10.x
+      arch: ppc64le  
+    - python: '2.7'
+      env: DJANGO_VERSION=1.9.x
+      arch: ppc64le  
+    - python: '2.7'
+      env: DJANGO_VERSION=1.8.x
+      arch: ppc64le  
+      
 
 install:
   - pip install tox coveralls
-
-script:
-  - tox -e "$TRAVIS_PYTHON_VERSION-$DJANGO_VERSION"
-
-after_success:
-  - coveralls
